@@ -26,9 +26,6 @@ class Water_Level_Sensor:
       self.ULTRA_SONIC_SENSOR_TRIGGER_OFF = False 
       self.ULTRA_SONIC_SENSOR_ECHO_ON = True # ultra sonic sensor returns reading
       self.ULTRA_SONIC_SENSOR_ECHO_OFF = False
-      # self.AVERAGING_INTERVAL = 1
-      # self.NO_OF_SAMPLES = 10
-      # self.WATER_LEVELS_FILE = '/home/pi/dev/padawan-iot-rework/padawan_iot/padawan_iot/water_level/water-level-data.csv'  
 
 
    def setup_GPIO(self) -> None:
@@ -71,61 +68,8 @@ class Water_Level_Sensor:
 
       pulse_time = pulse_stop - pulse_start
 
-      distance = int(pulse_time * 170000) # sets distance to mm; speed = 2d/time
+      distance = int(pulse_time * 170000) # sonic speed = 343000 sets distance to mm; speed = 2d/time
       return distance
-
-   
-   # def verify_read(self):
-   #    dist = self.read_sensor()
-   #    dist2 = self.read_sensor()
-   #    dist3 = self.read_sensor()
-   #    dist4 = self.read_sensor()
-   #    dist5 = self.read_sensor()
-   #    dist6 = self.read_sensor()
-   #    dist7 = self.read_sensor()
-   #    dist8 = self.read_sensor()
-   #    dist9 = self.read_sensor()
-   #    dist10 = self.read_sensor()
-   #    water_level_average = ((dist + dist2 + dist3 + dist4 + dist5 + dist6 + dist7 + dist8 + dist9 + dist10) / 10)
-   #    return water_level_average
-      # water_level_measurements = []
-      # while len(water_level_measurements) <= self.NO_OF_SAMPLES:
-      # self.read_sensor()
-      #    water_level_measurements.append(values)
-      # sum = 0
-      # for sample in water_level_measurements:
-      #    sum += sample
-      # water_level_average = int(sum / len(water_level_measurements))
-      # print(water_level_average)
-
-
-   # def verify_measurements(self):
-   #    # lastGoodReading = -1
-   #    water_level_data = []
-   #    while len(water_level_data) <= self.NO_OF_SAMPLES:
-   #       # verify_measurement(read_sensor(), lastGoodReading)
-   #       test = self.read_sensor()
-   #       print("test = ", test)
-   #       water_level_data.append(test)
-   #       # time.sleep(self.AVERAGING_INTERVAL/self.NO_OF_SAMPLES)
-   #    sum = 0
-   #    for sample in water_level_data:
-   #       sum += sample
-   #    water_level_average = int(sum / len(water_level_data))
-   #    file_exists = exists(self.WATER_LEVELS_FILE)
-   #    if file_exists:
-   #       with open(self.WATER_LEVELS_FILE, 'a') as f:
-   #          f.writelines(f'{water_level_average}\n')
-   #       print("file found")
-   #    else:
-   #       print("file not found")
-   #       with open(self.WATER_LEVELS_FILE, 'w') as f:
-   #          f.writelines(f'{water_level_average}\n')
-   #    with open(self.WATER_LEVELS_FILE, 'r') as f:
-   #       lines = f.readlines()
-   #       line = lines[-1].strip()
-   #       water_level = line.split(',')
-   #       print(water_level)
 
 
    def maintain_water_level(self):
@@ -149,7 +93,7 @@ class Water_Level_Sensor:
                self.amber_led.value = self.LED_OFF
                self.water_pump.value = self.RELAY_PUMP_ON
                self.buzzer.value = self.BUZZER_ON
-               time.sleep(2)
+               time.sleep(1)
                self.buzzer.value = self.BUZZER_OFF
             elif distance > 100:
                print("Water level is low")
@@ -158,7 +102,7 @@ class Water_Level_Sensor:
                self.red_led.value = self.LED_OFF
                self.water_pump.value = self.RELAY_PUMP_OFF
                self.buzzer.value = self.BUZZER_ON
-               time.sleep(2)
+               time.sleep(1)
                self.buzzer.value = self.BUZZER_OFF
 
             time.sleep(1)
@@ -174,8 +118,6 @@ def main():
    print("Starting Measurements.....")
    time.sleep(0.1)
    myultrasensor.read_sensor()
-   # myultrasensor.verify_measurements()
-   # myultrasensor.verify_read()
    myultrasensor.maintain_water_level()
    
 
