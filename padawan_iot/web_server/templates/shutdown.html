@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+{% block title %}
+  FieldEdge - Shutdown
+{% endblock %}
+{% block content %}
+  <div>
+    {% if state == 'shutdown' or state == 'mockshutdown' %}
+      <h2 style="color: red;">Shutting down now.</h2>
+      <h3 style="color: orange;">
+        &#x26A0; Please wait at least 90 seconds before removing power.
+      </h3>
+      <h3>You must remove and replace power to restart system.</h3>
+    {% elif state == 'reboot' or state == 'mockreboot' %}
+      <h2 style="color: orange;">Rebooting now...</h2>
+      <h3>
+        &#x26A0; Please wait at least 90 seconds before reconnecting.
+      </h3>
+    {% else %}
+    <div><p><h5>Do you want to shut down the Device?<h5></p></div>
+    <div class="row">
+      <form method="POST" action="/confirmshutdown">
+        <div class="d-grid gap-3 d-md-block">
+          <button class="btn btn-danger" type="submit" name="shutdownType" value="shutdown">Shutdown</button>
+          <button class="btn btn-warning" type="submit" name="shutdownType" value="reboot">Reboot</button>
+          <button class="btn btn-secondary" type="submit" name="shutdownType" value="cancel">Cancel</button>
+        </div>
+      </form>
+    </div>
+    {% endif %}
+  </div>
+{% endblock %}

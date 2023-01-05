@@ -1,0 +1,5 @@
+pillow
+adafruit-ssd1306
+adafruit-circuitpython-ssd1306
+flask
+adafruit-blinka
