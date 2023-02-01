@@ -82,25 +82,25 @@ class Water_Level_Sensor:
             if distance in range(50,100):
                print("Water Level Nominal")
                self.green_led.value = self.LED_ON
-               self.amber_led.value = self.LED_OFF
+               self.amber_led.value = self.LED_ON
                self.red_led.value = self.LED_OFF
                self.buzzer.value = self.BUZZER_OFF
                self.water_pump.value = self.RELAY_PUMP_OFF
             elif distance < 50:
-               print("Water level is critically high")
-               self.red_led.value = self.LED_ON
-               self.green_led.value = self.LED_OFF
+               print("Water level Full")
+               self.red_led.value = self.LED_OFF
+               self.green_led.value = self.LED_ON
                self.amber_led.value = self.LED_OFF
-               self.water_pump.value = self.RELAY_PUMP_ON
+               self.water_pump.value = self.RELAY_PUMP_OFF
                self.buzzer.value = self.BUZZER_ON
                time.sleep(1)
                self.buzzer.value = self.BUZZER_OFF
             elif distance > 100:
-               print("Water level is low")
-               self.amber_led.value = self.LED_ON
+               print("Water level Low")
+               self.amber_led.value = self.LED_OFF
                self.green_led.value = self.LED_OFF
-               self.red_led.value = self.LED_OFF
-               self.water_pump.value = self.RELAY_PUMP_OFF
+               self.red_led.value = self.LED_ON
+               self.water_pump.value = self.RELAY_PUMP_ON
                self.buzzer.value = self.BUZZER_ON
                time.sleep(1)
                self.buzzer.value = self.BUZZER_OFF

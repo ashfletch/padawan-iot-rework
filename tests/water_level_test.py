@@ -21,17 +21,25 @@ ultra_sonic_echo.pull = digitalio.Pull.DOWN
 ultra_sonic_trig.value = ULTRA_SONIC_SENSOR_TRIGGER_ON
 time.sleep(0.00001)
 ultra_sonic_trig.value = ULTRA_SONIC_SENSOR_TRIGGER_OFF
-      
-while True:
-    pulse_start = 0
-    pulse_stop = 0
-    while ultra_sonic_echo.value == 0:
-        pulse_start = time.time()
 
-    while ultra_sonic_echo.value == 1:
-        pulse_stop = time.time()
+def ultrasonic_test():      
+    while True:
+        pulse_start = 0
+        pulse_stop = 0
+        while ultra_sonic_echo.value == 0:
+            pulse_start = time.time()
 
-    pulse_time = pulse_stop - pulse_start
+        while ultra_sonic_echo.value == 1:
+            pulse_stop = time.time()
 
-    distance = int(pulse_time * 170000) # sets distance to mm; speed = 2d/time
-    print(distance)
+        pulse_time = pulse_stop - pulse_start
+
+        distance = int(pulse_time * 170000) # sets distance to mm; speed = 2d/time
+        print(distance)
+
+
+def main():
+   ultrasonic_test()
+
+if __name__ == '__main__':
+    main()
