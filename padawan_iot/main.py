@@ -42,13 +42,10 @@ def main():
         myoled.display_stats()
         
         print("Starting Measurements...")
-        myultrasensor.setup_GPIO()
+        # myultrasensor.setup_GPIO()
         time.sleep(0.1)
         myultrasensor.read_sensor()
-        # myultrasensor.verify_measurements()
-        # myultrasensor.measure_average()
         myultrasensor.maintain_water_level()
-        
         mytempsensor.setup_temp_sensor()
         mytempsensor.read_rom()
         mytempsensor.read_temp_raw()
