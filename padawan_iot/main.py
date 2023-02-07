@@ -25,25 +25,22 @@ def main():
     mytempsensor = temperature_sensor.Temperature_Sensor()
 
     # test sensors and inputs/outputs are functional
-    mytestsensors.test_leds(myinit)
-    mytestsensors.test_buzzer(myinit)
-    mytestsensors.test_relays(myinit)
-    mytestsensors.test_ultra_sensor(myinit)
-    mytestsensors.test_temp_sensor()
+    #mytestsensors.test_leds(myinit)
+    #mytestsensors.test_buzzer(myinit)
+    #mytestsensors.test_relays(myinit)
+    #mytestsensors.test_ultra_sensor(myinit)
+    #mytestsensors.test_temp_sensor()
 
     print("\nInitialisation Complete!")
     print("\nSetting up OLED Display...")
-    
     myoled.display_init()
     myoled.display_setup()
     print("OLED Ready")
+    myoled.display_stats()
+    print("Starting Measurements...")
+    time.sleep(1)
 
     while True:
-        myoled.display_stats()
-        
-        print("Starting Measurements...")
-        # myultrasensor.setup_GPIO()
-        time.sleep(0.1)
         myultrasensor.read_sensor()
         myultrasensor.maintain_water_level()
         mytempsensor.setup_temp_sensor()
@@ -51,7 +48,7 @@ def main():
         mytempsensor.read_temp_raw()
         temp_celcius = mytempsensor.read_temp()
         mytempsensor.output_temp(temp_celcius)
-        time.sleep(0.1)
+        time.sleep(1)
 
 
 if __name__ == '__main__':

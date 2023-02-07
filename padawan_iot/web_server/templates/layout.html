@@ -54,7 +54,8 @@
       </nav>
       {% endblock navbar %}
       <div class="page-header">
-        <h1><small>{% block pagetitle %}{% endblock pagetitle%}</small></h1>
+        <h1><small>{% block pagetitle %}
+          {% endblock pagetitle%}</small></h1>
       </div>
       <main role="main" class="container-fluid content">
         <div>
@@ -64,7 +65,7 @@
         <script src="{{ url_for('static', filename='js/enable-tooltips.js') }}"></script>
       </main>
       <footer class="footer">
-        <div class="container-fluid">
+        <div class="container">
           <div class="row">
             <div class="col-6">
               <div class="copyright">
