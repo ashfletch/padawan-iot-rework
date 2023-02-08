@@ -56,14 +56,14 @@ class Water_Level_Sensor:
    def read_sensor(self) -> int:
       pulse_start = 0
       pulse_stop = 0
-      self.ultra_sonic_trig.value = self.ULTRA_SONIC_SENSOR_TRIGGER_ON
+      self.ultra_sonic_trig = self.ULTRA_SONIC_SENSOR_TRIGGER_ON
       time.sleep(0.0001)
-      self.ultra_sonic_trig.value = self.ULTRA_SONIC_SENSOR_TRIGGER_OFF
+      self.ultra_sonic_trig = self.ULTRA_SONIC_SENSOR_TRIGGER_OFF
       
-      while self.ultra_sonic_echo.value == 0:
+      while self.ultra_sonic_echo == 0:
          pulse_start = time.time()
 
-      while self.ultra_sonic_echo.value == 1:
+      while self.ultra_sonic_echo == 1:
          pulse_stop = time.time()
 
       pulse_time = pulse_stop - pulse_start
