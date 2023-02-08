@@ -58,22 +58,21 @@
           {% endblock pagetitle%}</small></h1>
       </div>
       <main role="main" class="container-fluid content">
-        <div>
-        {% block content %}
-        {% endblock content %}
+        <div>{% block content %}
+          {% endblock content %}
         </div>
         <script src="{{ url_for('static', filename='js/enable-tooltips.js') }}"></script>
       </main>
       <footer class="footer">
         <div class="container">
           <div class="row">
-            <div class="col-6">
+            <div class="col-7">
               <div class="copyright">
                 &copy; London South Bank University
                 <script src="{{ url_for('static', filename='js/copyrightdate.js') }}"></script>
               </div>
             </div>
-            <div class="col-6">
+            <div class="col-5">
               <div class="time">
                 <script src="{{ url_for('static', filename='js/currenttime.js') }}"></script>
               </div>
