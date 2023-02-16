@@ -30,7 +30,7 @@ def main():
     #mytestsensors.test_relays(myinit)
     #mytestsensors.test_ultra_sensor(myinit)
     #mytestsensors.test_temp_sensor()
-
+    
     print("\nInitialisation Complete!")
     print("\nSetting up OLED Display...")
     myoled.display_init()
@@ -41,13 +41,14 @@ def main():
     time.sleep(1)
 
     while True:
-        myultrasensor.read_sensor()
+        distance = myultrasensor.read_sensor()
         myultrasensor.maintain_water_level()
         mytempsensor.setup_temp_sensor()
         mytempsensor.read_rom()
         mytempsensor.read_temp_raw()
         temp_celcius = mytempsensor.read_temp()
         mytempsensor.output_temp(temp_celcius)
+        myoled.display_measurements(distance, temp_celcius)
         time.sleep(1)
 
 

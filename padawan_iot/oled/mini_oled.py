@@ -1,11 +1,21 @@
 import time
 import subprocess
+import sys
+import os
 
 from board import SCL, SDA
 import busio
 from PIL import Image, ImageDraw, ImageFont
 import adafruit_ssd1306
 
+current = os.path.dirname(os.path.realpath(__file__))
+# Getting the parent directory name where the current directory is present.
+parent = os.path.dirname(current)
+# adding the parent directory to the sys.path.
+sys.path.append(parent)
+
+from sensors.water_level import water_level_sensor
+from sensors.temperature import temperature_sensor
 
 class MiniOled:
 
@@ -61,16 +71,27 @@ class MiniOled:
         self.display.show()
 
     
-    def display_measurements():
-        pass
+    def display_measurements(self, distance, temp_celcius):
+        self.draw.rectangle((0, 0, self.display.width, self.display.height),
+            outline=0, fill=0)
+        self.draw.text((self.x, self.top + 0), "Water Level: " + distance, font=self.font, 
+        fill=255)
+        self.draw.text((self.x, self.top + 8), "Water Temp: " + temp_celcius, 
+        font=self.font, fill=255)
+        self.display.image(self.image)
+        self.display.show()    
 
 
 def main():
+    myultrasensor = water_level_sensor.Water_Level_Sensor()
+    mytempsensor = temperature_sensor.Temperature_Sensor()
+    distance = myultrasensor.read_sensor()
+    temp_celcius = mytempsensor.read_temp()
     myoled = MiniOled()
     myoled.display_init()
     myoled.display_setup()
     myoled.display_stats()
-    # myoled.display_measurements()
+    myoled.display_measurements()
 
 
 if __name__ == '__main__':
