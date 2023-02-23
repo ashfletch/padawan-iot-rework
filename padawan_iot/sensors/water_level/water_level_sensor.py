@@ -1,5 +1,6 @@
 import time
 from os.path import exists
+import threading
 
 import board
 import digitalio
@@ -54,17 +55,16 @@ class Water_Level_Sensor:
 
    
    def read_sensor(self) -> int:
-      pulse_start = 0
-      pulse_stop = 0
       self.ultra_sonic_trig.value = self.ULTRA_SONIC_SENSOR_TRIGGER_ON
       time.sleep(0.0001)
       self.ultra_sonic_trig.value = self.ULTRA_SONIC_SENSOR_TRIGGER_OFF
+      pulse_start = time.time()
       
       while self.ultra_sonic_echo.value == 0:
-         pulse_start = time.time()
+         if time.time() - pulse_start >3:
+            return None
 
-      while self.ultra_sonic_echo.value == 1:
-         pulse_stop = time.time()
+      pulse_stop = time.time()
 
       pulse_time = pulse_stop - pulse_start
 
@@ -75,37 +75,39 @@ class Water_Level_Sensor:
    def maintain_water_level(self):
       try:
          self.setup_GPIO()
-         while True:
-            distance = self.read_sensor()
-            print(distance)
+         distance = self.read_sensor()
+         if distance is None:
+            print("ERROR: Invalid Measurement")
+            return
+         print(distance)
 
-            if distance in range(50,100): # to fill more than low range, change to lower value
-               print("Water Level Nominal")
-               self.green_led.value = self.LED_ON
-               self.amber_led.value = self.LED_ON
-               self.red_led.value = self.LED_OFF
-               self.buzzer.value = self.BUZZER_OFF
-               self.water_pump.value = self.RELAY_PUMP_OFF
-            elif distance < 50:
-               print("Water level Full")
-               self.red_led.value = self.LED_OFF
-               self.green_led.value = self.LED_ON
-               self.amber_led.value = self.LED_OFF
-               self.water_pump.value = self.RELAY_PUMP_OFF
-               self.buzzer.value = self.BUZZER_ON
-               time.sleep(1)
-               self.buzzer.value = self.BUZZER_OFF
-            elif distance > 100: # would need to link to nominal lower range
-               print("Water level Low")
-               self.amber_led.value = self.LED_OFF
-               self.green_led.value = self.LED_OFF
-               self.red_led.value = self.LED_ON
-               self.water_pump.value = self.RELAY_PUMP_ON
-               self.buzzer.value = self.BUZZER_ON
-               time.sleep(1)
-               self.buzzer.value = self.BUZZER_OFF
-
+         if distance in range(50,100): # to fill more than low range, change to lower value
+            print("Water Level Nominal")
+            self.green_led.value = self.LED_ON
+            self.amber_led.value = self.LED_ON
+            self.red_led.value = self.LED_OFF
+            self.buzzer.value = self.BUZZER_OFF
+            self.water_pump.value = self.RELAY_PUMP_OFF
+         elif distance < 50:
+            print("Water level Full")
+            self.red_led.value = self.LED_OFF
+            self.green_led.value = self.LED_ON
+            self.amber_led.value = self.LED_OFF
+            self.water_pump.value = self.RELAY_PUMP_OFF
+            self.buzzer.value = self.BUZZER_ON
             time.sleep(1)
+            self.buzzer.value = self.BUZZER_OFF
+         elif distance > 100: # would need to link to nominal lower range
+            print("Water level Low")
+            self.amber_led.value = self.LED_OFF
+            self.green_led.value = self.LED_OFF
+            self.red_led.value = self.LED_ON
+            self.water_pump.value = self.RELAY_PUMP_ON
+            self.buzzer.value = self.BUZZER_ON
+            time.sleep(1)
+            self.buzzer.value = self.BUZZER_OFF
+
+         time.sleep(1)
 
       except KeyboardInterrupt:
          print("Cleaning up...!")

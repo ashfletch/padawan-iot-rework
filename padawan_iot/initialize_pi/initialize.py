@@ -129,10 +129,11 @@ class Testsensors:
         mytestinit.ultra_sonic_trig.value = mytestinit.ULTRA_SONIC_SENSOR_TRIGGER_ON
         time.sleep(0.00001)
         mytestinit.ultra_sonic_trig.value = mytestinit.ULTRA_SONIC_SENSOR_TRIGGER_OFF
-
+        pulse_start = time.time()
         while mytestinit.ultra_sonic_echo.value == 0:
             pulse_start = time.time()
-
+        
+        pulse_stop = time.time()
         while mytestinit.ultra_sonic_echo.value == 1:
             pulse_stop = time.time()
 

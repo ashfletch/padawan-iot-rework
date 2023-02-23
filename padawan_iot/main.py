@@ -22,14 +22,15 @@ def main():
     mytestsensors = initialize.Testsensors()
     myoled = mini_oled.MiniOled()
     myultrasensor = water_level_sensor.Water_Level_Sensor()
+    myultrasensor.setup_GPIO()
     mytempsensor = temperature_sensor.Temperature_Sensor()
 
     # test sensors and inputs/outputs are functional
-    mytestsensors.test_leds(myinit)
-    mytestsensors.test_buzzer(myinit)
-    mytestsensors.test_relays(myinit)
-    mytestsensors.test_ultra_sensor(myinit)
-    mytestsensors.test_temp_sensor()
+    # mytestsensors.test_leds(myinit)
+    # mytestsensors.test_buzzer(myinit)
+    # mytestsensors.test_relays(myinit)
+    # mytestsensors.test_ultra_sensor(myinit)
+    # mytestsensors.test_temp_sensor()
     
     print("\nInitialisation Complete!")
     print("\nSetting up OLED Display...")
@@ -49,7 +50,7 @@ def main():
         temp_celcius = mytempsensor.read_temp()
         mytempsensor.output_temp(temp_celcius)
         myoled.display_measurements(distance, temp_celcius)
-        time.sleep(1)
+        time.sleep(3)
 
 
 if __name__ == '__main__':
