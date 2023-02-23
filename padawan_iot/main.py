@@ -25,11 +25,11 @@ def main():
     mytempsensor = temperature_sensor.Temperature_Sensor()
 
     # test sensors and inputs/outputs are functional
-    #mytestsensors.test_leds(myinit)
-    #mytestsensors.test_buzzer(myinit)
-    #mytestsensors.test_relays(myinit)
-    #mytestsensors.test_ultra_sensor(myinit)
-    #mytestsensors.test_temp_sensor()
+    mytestsensors.test_leds(myinit)
+    mytestsensors.test_buzzer(myinit)
+    mytestsensors.test_relays(myinit)
+    mytestsensors.test_ultra_sensor(myinit)
+    mytestsensors.test_temp_sensor()
     
     print("\nInitialisation Complete!")
     print("\nSetting up OLED Display...")

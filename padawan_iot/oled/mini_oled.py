@@ -8,12 +8,6 @@ import busio
 from PIL import Image, ImageDraw, ImageFont
 import adafruit_ssd1306
 
-current = os.path.dirname(os.path.realpath(__file__))
-# Getting the parent directory name where the current directory is present.
-parent = os.path.dirname(current)
-# adding the parent directory to the sys.path.
-sys.path.append(parent)
-
 from sensors.water_level import water_level_sensor
 from sensors.temperature import temperature_sensor
 
@@ -96,3 +90,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+    
