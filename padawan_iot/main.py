@@ -15,37 +15,37 @@ from sensors.temperature import temperature_sensor
 def main():
     myinit = initialize.Initializepi()
     myinit.setup_GPIO()
-
     I2C_DEVICE_LIST = myinit.scan_i2c()
     myinit.check_i2c_devices(I2C_DEVICE_LIST)
 
-    mytestsensors = initialize.Testsensors()
-    myoled = mini_oled.MiniOled()
-    myultrasensor = water_level_sensor.Water_Level_Sensor()
-    myultrasensor.setup_GPIO()
-    mytempsensor = temperature_sensor.Temperature_Sensor()
-
-    # test sensors and inputs/outputs are functional
+    # mytestsensors = initialize.Testsensors()
+    # print("\nInitialising RPi GPIO...")
     # mytestsensors.test_leds(myinit)
     # mytestsensors.test_buzzer(myinit)
     # mytestsensors.test_relays(myinit)
     # mytestsensors.test_ultra_sensor(myinit)
     # mytestsensors.test_temp_sensor()
-    
-    print("\nInitialisation Complete!")
-    print("\nSetting up OLED Display...")
+
+    myoled = mini_oled.MiniOled()
+    print("Setting up OLED Display...")
     myoled.display_init()
     myoled.display_setup()
     print("OLED Ready")
     myoled.display_stats()
-    print("Starting Measurements...")
-    time.sleep(1)
+
+    myultrasensor = water_level_sensor.Water_Level_Sensor()
+    myultrasensor.setup_GPIO()
+
+    mytempsensor = temperature_sensor.Temperature_Sensor()
+    mytempsensor.setup_temp_sensor()
+    mytempsensor.read_rom()
+ 
+    print("Initialisation Complete!")
+    print("\nStarting Measurements...")
 
     while True:
         distance = myultrasensor.read_sensor()
         myultrasensor.maintain_water_level()
-        mytempsensor.setup_temp_sensor()
-        mytempsensor.read_rom()
         mytempsensor.read_temp_raw()
         temp_celcius = mytempsensor.read_temp()
         mytempsensor.output_temp(temp_celcius)

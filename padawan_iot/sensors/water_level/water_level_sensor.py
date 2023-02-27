@@ -56,7 +56,7 @@ class Water_Level_Sensor:
    
    def read_sensor(self) -> int:
       self.ultra_sonic_trig.value = self.ULTRA_SONIC_SENSOR_TRIGGER_ON
-      time.sleep(0.0001)
+      time.sleep(0.00001)
       self.ultra_sonic_trig.value = self.ULTRA_SONIC_SENSOR_TRIGGER_OFF
       pulse_start = time.time()
       
@@ -77,19 +77,19 @@ class Water_Level_Sensor:
          self.setup_GPIO()
          distance = self.read_sensor()
          if distance is None:
-            print("ERROR: Invalid Measurement")
+            print("ERROR: Invalid Water Level Measurement")
             return
-         print(distance)
+         # print("Water LeveL: ", distance, "mm")
 
-         if distance in range(50,100): # to fill more than low range, change to lower value
-            print("Water Level Nominal")
+         if distance in range(50,80): # to fill more than low range, change to lower value
+            print("Water Level Nominal:", distance,"mm")
             self.green_led.value = self.LED_ON
             self.amber_led.value = self.LED_ON
             self.red_led.value = self.LED_OFF
             self.buzzer.value = self.BUZZER_OFF
             self.water_pump.value = self.RELAY_PUMP_OFF
          elif distance < 50:
-            print("Water level Full")
+            print("Water level Full:", distance,"mm")
             self.red_led.value = self.LED_OFF
             self.green_led.value = self.LED_ON
             self.amber_led.value = self.LED_OFF
@@ -97,8 +97,8 @@ class Water_Level_Sensor:
             self.buzzer.value = self.BUZZER_ON
             time.sleep(1)
             self.buzzer.value = self.BUZZER_OFF
-         elif distance > 100: # would need to link to nominal lower range
-            print("Water level Low")
+         elif distance > 80: # would need to link to nominal lower range
+            print("Water level Low:", distance,"mm")
             self.amber_led.value = self.LED_OFF
             self.green_led.value = self.LED_OFF
             self.red_led.value = self.LED_ON
@@ -114,14 +114,13 @@ class Water_Level_Sensor:
          self.setup_GPIO()
 
 
-def main():
-   myultrasensor = Water_Level_Sensor()
-   myultrasensor.setup_GPIO()
-   print("Starting Measurements.....")
-   time.sleep(0.1)
-   myultrasensor.read_sensor()
-   myultrasensor.maintain_water_level()
+# def main():
+#    myultrasensor = Water_Level_Sensor()
+#    myultrasensor.setup_GPIO()
+#    print("Starting Measurements.....")
+#    time.sleep(1)
+#    myultrasensor.maintain_water_level()
    
 
-if __name__ == '__main__':
-    main()
+# if __name__ == '__main__':
+#     main()

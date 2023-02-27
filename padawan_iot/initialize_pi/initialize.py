@@ -76,7 +76,7 @@ class Initializepi:
         }
         for I2C_DEVICE in I2C_DEVICE_LIST:
             if I2C_DEVICE == "0x3c":
-                print("\nOLED found!")
+                print("OLED found!")
                 OLED_FOUND = True
             time.sleep(2)             
             # if I2C_DEVICE == "":
@@ -170,18 +170,18 @@ class Testsensors:
         return temp_celcius
         
 
-def main():
-    myinit = Initializepi()
-    myinit.setup_GPIO()
-    I2C_DEVICE_LIST = myinit.scan_i2c()
-    myinit.check_i2c_devices(I2C_DEVICE_LIST)
-    mytestsensors = Testsensors()
-    mytestsensors.test_leds(myinit)
-    mytestsensors.test_buzzer(myinit)
-    mytestsensors.test_relays(myinit)
-    mytestsensors.test_ultra_sensor(myinit)
-    mytestsensors.test_temp_sensor()
-    print('\nInitialisation Complete!')
+# def main():
+#     myinit = Initializepi()
+#     myinit.setup_GPIO()
+#     I2C_DEVICE_LIST = myinit.scan_i2c()
+#     myinit.check_i2c_devices(I2C_DEVICE_LIST)
+#     mytestsensors = Testsensors()
+#     mytestsensors.test_leds(myinit)
+#     mytestsensors.test_buzzer(myinit)
+#     mytestsensors.test_relays(myinit)
+#     mytestsensors.test_ultra_sensor(myinit)
+#     mytestsensors.test_temp_sensor()
+#     print('\nInitialisation Complete!')
 
-if __name__ == '__main__':
-    main()
+# if __name__ == '__main__':
+#     main()
