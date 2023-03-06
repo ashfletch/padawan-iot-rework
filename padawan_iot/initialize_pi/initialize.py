@@ -139,7 +139,7 @@ class Testsensors:
 
         pulse_time = pulse_stop - pulse_start
 
-        distance = int(pulse_time * 170000) # sets distance to mm; speed = 2d/time
+        distance = (133 - int(pulse_time * 170000)) # sets distance to mm; speed = 2d/time
         print("Current Water Level:", distance, "mm")
         return distance
 
