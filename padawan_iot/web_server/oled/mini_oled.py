@@ -66,9 +66,12 @@ class MiniOled:
     def display_measurements(self, distance, temp_celcius):
         self.draw.rectangle((0, 0, self.display.width, self.display.height),
             outline=0, fill=0)
-        self.draw.text((self.x, self.top + 0), "Water Level: " + str(distance) + "mm", font=self.font, 
+        self.draw.text((self.x, self.top + 0), "Measurements:", 
+        font=self.font, fill=255)
+        self.draw.text((self.x, self.top + 16), "Water Level: " + str(distance) + "mm", 
+        font=self.font, 
         fill=255)
-        self.draw.text((self.x, self.top + 8), "Water Temp: " + str(temp_celcius) + " C", 
+        self.draw.text((self.x, self.top + 25), "Water Temp: " + str(temp_celcius) + " C", 
         font=self.font, fill=255)
         self.display.image(self.image)
         self.display.show()
