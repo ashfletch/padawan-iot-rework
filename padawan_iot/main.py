@@ -1,8 +1,8 @@
 '''
-This application is to run a number of sesnsors to monitor the water level
+This application is to run a number of sensors to monitor the water level
 within a closed loop system. The application can also detect when the water
-level is critically high and pump water out of the main tank and into a secondary
-tank to keep the water level nominal. 
+level is critically low and pump water in to the main tank to tank to keep the
+water level nominal. 
 '''
 
 import time
@@ -18,13 +18,13 @@ def main():
     I2C_DEVICE_LIST = myinit.scan_i2c()
     myinit.check_i2c_devices(I2C_DEVICE_LIST)
 
-    # mytestsensors = initialize.Testsensors()
-    # print("\nInitialising RPi GPIO...")
-    # mytestsensors.test_leds(myinit)
-    # mytestsensors.test_buzzer(myinit)
-    # mytestsensors.test_relays(myinit)
-    # mytestsensors.test_ultra_sensor(myinit)
-    # mytestsensors.test_temp_sensor()
+    mytestsensors = initialize.Testsensors()
+    print("\nInitialising RPi GPIO...")
+    mytestsensors.test_leds(myinit)
+    mytestsensors.test_buzzer(myinit)
+    mytestsensors.test_relays(myinit)
+    mytestsensors.test_ultra_sensor(myinit)
+    mytestsensors.test_temp_sensor()
 
     myoled = mini_oled.MiniOled()
     print("Setting up OLED Display...")
@@ -39,7 +39,7 @@ def main():
     mytempsensor = temperature_sensor.Temperature_Sensor()
     mytempsensor.setup_temp_sensor()
     mytempsensor.read_rom()
- 
+
     print("Initialisation Complete!")
     print("\nStarting Measurements...")
 

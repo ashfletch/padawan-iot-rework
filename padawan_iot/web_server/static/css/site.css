@@ -109,7 +109,7 @@ html, body {
 }
 .fill-line {
   border-left: 180px solid #28a1f7;
-  /*height: {{ gray_line }}px;*/
+  /*height: {{ grey_line }}px;*/
 }
 
 #tank {
