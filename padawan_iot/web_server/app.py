@@ -73,9 +73,9 @@ def confirmshutdown():
     """Form submission confirmation from shutdown page."""
     shutdown_type = request.form.get('shutdownType')
     if shutdown_type == 'shutdown':
-        subprocess.run('sudo shutdown -P 1', shell=True)
+        subprocess.run('sudo shutdown -h 1', shell=True)
     elif shutdown_type == 'reboot':
-        subprocess.run('sudo shutdown -r 1 ', shell=True)
+        subprocess.run('sudo reboot -h 1 ', shell=True)
     else:
         return redirect(url_for('home'))
     return redirect(url_for('shutdown'))
