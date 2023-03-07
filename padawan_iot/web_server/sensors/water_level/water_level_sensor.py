@@ -97,8 +97,8 @@ class Water_Level_Sensor:
             self.buzzer.value = self.BUZZER_ON
             time.sleep(1)
             self.buzzer.value = self.BUZZER_OFF
-         elif distance > 100: # need to link to nominal higher range
-            print("Water level full:", distance,"mm")
+         elif distance > 80: # would need to link to nominal lower range
+            print("Water level Low:", distance,"mm")
             self.amber_led.value = self.LED_OFF
             self.green_led.value = self.LED_ON
             self.red_led.value = self.LED_OFF
