@@ -81,30 +81,28 @@ class Water_Level_Sensor:
             return
          # print("Water LeveL: ", distance, "mm")
 
-         if distance in range(50,80): # to fill more than low range, change to lower value
+         if distance in range(40,100): # to fill more than low range, change to lower value
             print("Water Level Nominal:", distance,"mm")
             self.green_led.value = self.LED_ON
             self.amber_led.value = self.LED_ON
             self.red_led.value = self.LED_OFF
             self.buzzer.value = self.BUZZER_OFF
             self.water_pump.value = self.RELAY_PUMP_OFF
-         elif distance < 50:
-            print("Water level Full:", distance,"mm")
-            self.red_led.value = self.LED_OFF
-            self.green_led.value = self.LED_ON
-            self.amber_led.value = self.LED_OFF
-            self.water_pump.value = self.RELAY_PUMP_OFF
-            self.buzzer.value = self.BUZZER_ON
-            time.sleep(1)
-            self.buzzer.value = self.BUZZER_OFF
-         elif distance > 80: # would need to link to nominal lower range
-            print("Water level Low:", distance,"mm")
-            self.amber_led.value = self.LED_OFF
-            self.green_led.value = self.LED_OFF
+         elif distance < 30:
+            print("Water level low:", distance,"mm")
             self.red_led.value = self.LED_ON
+            self.green_led.value = self.LED_OFF
+            self.amber_led.value = self.LED_OFF
             self.water_pump.value = self.RELAY_PUMP_ON
             self.buzzer.value = self.BUZZER_ON
             time.sleep(1)
+            self.buzzer.value = self.BUZZER_OFF
+         elif distance > 100: # need to link to nominal higher range
+            print("Water level full:", distance,"mm")
+            self.amber_led.value = self.LED_OFF
+            self.green_led.value = self.LED_ON
+            self.red_led.value = self.LED_OFF
+            self.water_pump.value = self.RELAY_PUMP_OFF
             self.buzzer.value = self.BUZZER_OFF
 
          time.sleep(1)
