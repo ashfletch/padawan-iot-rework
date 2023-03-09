@@ -3,10 +3,10 @@ import time
 import threading
 
 from flask import Flask, redirect, url_for, render_template, request
-from initialize_pi import initialize
-from oled import mini_oled
-from sensors.water_level import water_level_sensor
-from sensors.temperature import temperature_sensor
+from web_server.initialize_pi import initialize
+from web_server.oled import mini_oled
+from web_server.sensors.water_level import water_level_sensor
+from web_server.sensors.temperature import temperature_sensor
 
 pi = initialize.Initializepi()
 pi.setup_GPIO()
