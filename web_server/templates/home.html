@@ -11,30 +11,27 @@
   }
   </script>
 <div class="row">
-      <div class="col-sm-6">
-        <h5 style="text-align:center">Water Level Monitor</h5>
-        <h5>{{ distance }}</h5>
-      </div>
-      <table>
-        <tr>
-          <td id="tank">
-            <table id="table" name="table2" height=20px style="border-spacing: 50px;">
-              <tr>
-                <td>
-                  <p style="text-align:center"> data coming soon(ish) </p>
-                    <div class="empty-line"></div>
-                    <div class="fill-line"></div>
-                 </td>
-              </tr>
-            </table>
-          </td>
-        </tr>
-      </table>
-      <div><hr></div>
-        <div>
-          <form method="POST" action="/shutdown">
-            <button class="btn btn-danger" type="submit">Shutdown/Reboot</button>
-          </form>
-        </div>
+  <div class="col-sm-6"><h5 style="text-align:center">Water Level Monitor</h5></div>
+  <table>
+    <tr>
+      <td id="tank">
+        <table id="table" name="table2" height=20px style="border-spacing: 50px;">
+          <tr>
+            <td>
+              <p style="text-align:center"> {{ distance }} </p>
+              <div class="empty-line"></div>
+              <div class="fill-line"></div>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+  <hr></hr>
+  <div class="row">
+      <form method="POST" action="/shutdown">
+        <button class="btn btn-danger" type="submit">Shutdown/Reboot</button>
+      </form>
+  </div>
 </div>
 {% endblock %}
