@@ -1,6 +1,5 @@
 import time
 from os.path import exists
-import threading
 
 import board
 import digitalio
@@ -81,14 +80,14 @@ class Water_Level_Sensor:
             return
          # print("Water LeveL: ", distance, "mm")
 
-         if distance in range(40,100): # to fill more than low range, change to lower value
+         if distance in range(20,100): # to fill more than low range, change to lower value
             print("Water Level Nominal:", distance,"mm")
-            self.green_led.value = self.LED_ON
+            self.green_led.value = self.LED_OFF
             self.amber_led.value = self.LED_ON
             self.red_led.value = self.LED_OFF
             self.buzzer.value = self.BUZZER_OFF
             self.water_pump.value = self.RELAY_PUMP_OFF
-         elif distance < 30:
+         elif distance < 20:
             print("Water level low:", distance,"mm")
             self.red_led.value = self.LED_ON
             self.green_led.value = self.LED_OFF
@@ -97,8 +96,8 @@ class Water_Level_Sensor:
             self.buzzer.value = self.BUZZER_ON
             time.sleep(1)
             self.buzzer.value = self.BUZZER_OFF
-         elif distance > 80: # would need to link to nominal lower range
-            print("Water level Low:", distance,"mm")
+         elif distance > 100: # would need to link to nominal lower range
+            print("Water level full:", distance,"mm")
             self.amber_led.value = self.LED_OFF
             self.green_led.value = self.LED_ON
             self.red_led.value = self.LED_OFF
@@ -112,13 +111,13 @@ class Water_Level_Sensor:
          self.setup_GPIO()
 
 
-# def main():
-#    myultrasensor = Water_Level_Sensor()
-#    myultrasensor.setup_GPIO()
-#    print("Starting Measurements.....")
-#    time.sleep(1)
-#    myultrasensor.maintain_water_level()
+def main():
+   myultrasensor = Water_Level_Sensor()
+   myultrasensor.setup_GPIO()
+   print("Starting Measurements.....")
+   time.sleep(1)
+   myultrasensor.maintain_water_level()
    
 
-# if __name__ == '__main__':
-#     main()
+if __name__ == '__main__':
+    main()

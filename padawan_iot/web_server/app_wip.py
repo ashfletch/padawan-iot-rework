@@ -46,7 +46,7 @@ def background_reading():
         temp_celcius = mytempsensor.read_temp()
         mytempsensor.output_temp(temp_celcius)
         myoled.display_measurements(distance, temp_celcius)
-        time.sleep(3)
+        # time.sleep(3)
 
 background_thread = threading.Thread(target=background_reading, daemon=True)
 background_thread.start()
@@ -60,8 +60,9 @@ def home():
 
 @app.route("/home")
 def homepage():
-    return render_template("home.html")
-
+    dis = myultrasensor.read_sensor()
+    return render_template("home.html", dis=dis)
+    
 
 @app.route('/shutdown', methods=['POST', 'GET'])
 def shutdown():

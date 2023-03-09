@@ -75,4 +75,3 @@ class MiniOled:
         font=self.font, fill=255)
         self.display.image(self.image)
         self.display.show()
-        time.sleep(1)
