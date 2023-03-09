@@ -3,13 +3,9 @@
 {% block pagetitle %}
 <div><p class="text-sm-left"><h5>Dashboard<h5></p></div>
 {% endblock pagetitle %}
+
 {% block content %}
-<script type="text/javascript">
-  function load()
-  {
-  setTimeout("window.open('http://127.0.0.1:5000/', '_self');", 500);
-  }
-  </script>
+
 <div class="row">
   <div class="col-sm-6"><h5 style="text-align:center">Water Level Monitor</h5></div>
   <table>
@@ -18,7 +14,7 @@
         <table id="table" name="table2" height=20px style="border-spacing: 50px;">
           <tr>
             <td>
-              <p style="text-align:center"> {{ distance }} </p>
+              <p style="text-align:center"> {{ dis }} </p>
               <div class="empty-line"></div>
               <div class="fill-line"></div>
             </td>

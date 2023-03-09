@@ -38,6 +38,9 @@ mytempsensor.read_rom()
 print("Initialisation Complete!")
 print("\nStarting Measurements...")
 
+def get_readings():
+    return myultrasensor.read_sensor()
+
 def background_reading():
     while True:
         distance = myultrasensor.read_sensor()
@@ -54,12 +57,13 @@ app = Flask(__name__)
 
 @app.route("/")
 def home():
-    return render_template("home.html")
+    dis = get_readings()
+    return render_template("home.html",dis=dis)
 
 
 @app.route("/home")
-def homepage(distance):
-    return render_template("home.html", distance=distance)
+def homepage():
+    return render_template("home.html")
     
 
 @app.route('/shutdown', methods=['POST', 'GET'])
