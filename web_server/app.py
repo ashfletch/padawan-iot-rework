@@ -1,6 +1,6 @@
 import subprocess
-import time
 import threading
+import time
 
 from flask import Flask, redirect, url_for, render_template, request
 from web_server.initialize_pi import initialize
@@ -43,7 +43,9 @@ def get_readings():
 
 def background_reading():
     while True:
+        time.sleep(1)
         distance = myultrasensor.read_sensor()
+        time.sleep(1)
         myultrasensor.maintain_water_level()
         mytempsensor.read_temp_raw()
         temp_celcius = mytempsensor.read_temp()
@@ -58,7 +60,10 @@ app = Flask(__name__)
 @app.route("/")
 def home():
     dis = get_readings()
-    return render_template("home.html",dis=dis)
+    dis_percentage = dis / 0.126
+    blue_line = round(dis_percentage * 2.25)
+    white_line = 225 - blue_line
+    return render_template("home.html", dis=dis, blue_line=blue_line, white_line=white_line)
 
 
 @app.route("/home")

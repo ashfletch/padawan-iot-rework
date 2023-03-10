@@ -15,11 +15,8 @@
     {% endblock styles -%}
 
     <script type="text/javascript">
-      // function load()
-      // {
-      // setTimeout(window.location.reload('http://127.0.0.1:5000/', '_self');, 500);
-      // }
-      setTimeout(function(){location.reload();},2000);
+      setTimeout(function(){
+        location.reload();},2000);
     </script>
 
     <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>

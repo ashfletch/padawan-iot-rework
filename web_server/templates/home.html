@@ -8,21 +8,21 @@
 
 <div class="row">
   <div class="col-sm-6"><h5 style="text-align:center">Water Level Monitor</h5></div>
-  <table>
-    <tr>
-      <td id="tank">
-        <table id="table" name="table2" height=20px style="border-spacing: 50px;">
-          <tr>
-            <td>
-              <p style="text-align:center"> {{ dis }} </p>
-              <div class="empty-line"></div>
-              <div class="fill-line"></div>
-            </td>
-          </tr>
-        </table>
-      </td>
-    </tr>
-  </table>
+  <h6 style="text-align:center">{{ dis }} mm</h6>
+    <table>
+      <tr>
+        <td id="tank">
+          <table id="tanktable" name="table" height=20px style="border-spacing: 50px;">
+            <tr>
+              <td>
+                <div class="empty-line">{{ white_line }}</div>
+                <div class="fill-line">{{ blue_line }}</div>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
   <hr></hr>
   <div class="row">
       <form method="POST" action="/shutdown">

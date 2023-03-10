@@ -99,17 +99,20 @@ html, body {
 }
 
 /* Water tank */
-#table {
-  border: 1px solid rgb(5, 5, 5);
+#tanktable {
+  margin-top:29px;
+  margin-left:2px;
+  /* border: 1px solid rgb(245, 6, 6); */
+  /* height: 225px; */
   border-collapse: collapse;
 }
 .empty-line {
-  border-left: 180px solid rgb(255, 8, 8);
-  /*height:{{ blue_line }}px;*/
+  border-left: 180px solid rgb(255, 255, 255);
+  height:{{ white_line }}px;
 }
 .fill-line {
   border-left: 180px solid #28a1f7;
-  /*height: {{ grey_line }}px;*/
+  height:{{ blue_line }}px;
 }
 
 #tank {
@@ -124,31 +127,8 @@ html, body {
   align-items: center;
 }   
 
-/* Logs tab */
-.log-content {
-  max-height: 100vw;
-  overflow-y: scroll;
-}
-.log-counter {
-  font-size: 0.5em;
-}
-.log-list {
-  font-size: 0.75em;
-}
-.log-error {
-    color: red;
-}
-.log-warning {
-    color: orange;
-}
-.log-normal {
-    color: darkslategrey;
-}
-
 .scroll-list {
-  /* max-width: 33vw; */
   max-height: 20vw;
-  /* overflow-y: scroll; */
   overflow: auto;
   margin-bottom: 1em;
 }
