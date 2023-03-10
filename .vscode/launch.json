@@ -11,7 +11,7 @@
             "request": "launch",
             "module": "flask",
             "env": {
-                "FLASK_APP": "padawan_iot/web_server.app",
+                "FLASK_APP": "web_server.app",
                 "FLASK_ENV": "development"
             },
             "args": [
