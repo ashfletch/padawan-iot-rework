@@ -7,16 +7,16 @@
 {% block content %}
 
 <div class="row">
-  <div class="col-sm-6"><h5 style="text-align:center">Water Level Monitor</h5></div>
-  <h6 style="text-align:center">{{ dis }} mm</h6>
+  <div class="col-sm-6"><h5 style="text-align:center">Water Trough Monitor</h5></div>
+  <h6 style="text-align:center">Water level: [{{ dis }} mm] || Water temp: [{{ temp }} C]</h6>
     <table>
       <tr>
         <td id="tank">
           <table id="tanktable" name="table" height=20px style="border-spacing: 50px;">
             <tr>
               <td>
-                <div class="empty-line"></div>
-                <div class="fill-line"></div>
+                <div class="empty-line">{{ white_line }}</div>
+                <div class="fill-line">{{ blue_line }}</div>
               </td>
             </tr>
           </table>

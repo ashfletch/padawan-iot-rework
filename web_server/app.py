@@ -38,8 +38,11 @@ mytempsensor.read_rom()
 print("Initialisation Complete!")
 print("\nStarting Measurements...")
 
-def get_readings():
+def get_water_level():
     return myultrasensor.read_sensor()
+
+def get_water_temp():
+    return mytempsensor.read_temp()
 
 def background_reading():
     while True:
@@ -59,11 +62,12 @@ app = Flask(__name__)
 
 @app.route("/")
 def home():
-    dis = get_readings()
+    dis = get_water_level()
     dis_percentage = dis / 0.126
     blue_line = round(dis_percentage * 2.25)
     white_line = 225 - blue_line
-    return render_template("home.html", dis=dis, blue_line=blue_line, white_line=white_line)
+    temp = get_water_temp()
+    return render_template("home.html", dis=dis, temp=temp, blue_line=blue_line, white_line=white_line)
 
 
 @app.route("/home")
