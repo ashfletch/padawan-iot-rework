@@ -1,3 +1,8 @@
+'''
+This program carries out a functionality test of all connected devices to a 
+Raspberry Pi. 
+'''
+
 import glob
 import time
 
@@ -29,7 +34,8 @@ class Initializepi:
         self.ULTRA_SONIC_SENSOR_ECHO_OFF = False
 
 
-    def setup_GPIO(self):
+    def setup_GPIO(self) -> None:
+        # define I/Os
         self.red_led = digitalio.DigitalInOut(self.RED_LED_PIN)
         self.amber_led = digitalio.DigitalInOut(self.AMBER_LED_PIN)
         self.green_led = digitalio.DigitalInOut(self.GREEN_LED_PIN)
@@ -38,6 +44,7 @@ class Initializepi:
         self.ultra_sonic_trig = digitalio.DigitalInOut(self.ULTRA_SONIC_SENSOR_TRIGGER_PIN)
         self.ultra_sonic_echo = digitalio.DigitalInOut(self.ULTRA_SONIC_SENSOR_ECHO_PIN)
 
+        # define I/O directions
         self.red_led.direction = digitalio.Direction.OUTPUT
         self.amber_led.direction = digitalio.Direction.OUTPUT
         self.green_led.direction = digitalio.Direction.OUTPUT
@@ -46,6 +53,7 @@ class Initializepi:
         self.ultra_sonic_trig.direction = digitalio.Direction.OUTPUT
         self.ultra_sonic_echo.direction = digitalio.Direction.INPUT
 
+        # initialise devices
         self.red_led.value = self.LED_OFF
         self.amber_led.value = self.LED_OFF
         self.green_led.value = self.LED_OFF
@@ -53,7 +61,7 @@ class Initializepi:
         self.water_pump.value = self.RELAY_PUMP_OFF
 
 
-    def scan_i2c(self):
+    def scan_i2c(self) -> list:
         I2C_DEVICE_LIST = []
         # Create the I2C interface.
         i2c = busio.I2C(board.SCL, board.SDA)
@@ -69,7 +77,7 @@ class Initializepi:
         return I2C_DEVICE_LIST
 
 
-    def check_i2c_devices(self, I2C_DEVICE_LIST):
+    def check_i2c_devices(self, I2C_DEVICE_LIST) -> None:
         DEVICE_ADDRS = {
             "OLED": "0x3c"
             # "Power Monitor": ""
@@ -79,9 +87,7 @@ class Initializepi:
                 print("OLED found!")
                 OLED_FOUND = True
             time.sleep(2)             
-            # if I2C_DEVICE == "":
-            #     print(" found")
-            #     _FOUND = True 
+
 
 class Testsensors:
     def __init__(self) -> None:
@@ -89,7 +95,7 @@ class Testsensors:
         pass
 
 
-    def test_leds(self, mytestinit):
+    def test_leds(self, mytestinit) -> None:
         print("Testing LEDs...")
         time.sleep(1)
         mytestinit.green_led.value = mytestinit.LED_ON
@@ -106,7 +112,7 @@ class Testsensors:
         print("LED Testing Complete")
 
 
-    def test_buzzer(self, mytestinit):
+    def test_buzzer(self, mytestinit) -> None:
         print("Testing Buzzer...")
         time.sleep(1)
         mytestinit.buzzer.value = mytestinit.BUZZER_ON 
@@ -115,7 +121,7 @@ class Testsensors:
         print("Buzzer Test Complete")
     
     
-    def test_relays(self, mytestinit):
+    def test_relays(self, mytestinit) -> None:
         print("Testing Water Pump...")
         time.sleep(1)
         mytestinit.water_pump.value = mytestinit.RELAY_PUMP_ON
@@ -123,7 +129,7 @@ class Testsensors:
         mytestinit.water_pump.value = mytestinit.RELAY_PUMP_OFF
         print("Water Pump Test Complete")
 
-    def test_ultra_sensor(self, mytestinit):
+    def test_ultra_sensor(self, mytestinit) -> int:
         print("Getting Water Level...")
         time.sleep(1)
         mytestinit.ultra_sonic_trig.value = mytestinit.ULTRA_SONIC_SENSOR_TRIGGER_ON
@@ -144,7 +150,7 @@ class Testsensors:
         return distance
 
     
-    def test_temp_sensor(self):
+    def test_temp_sensor(self) -> int:
         print("Getting Water Temp...")
         time.sleep(1)
         base_dir = '/sys/bus/w1/devices/'
@@ -170,18 +176,18 @@ class Testsensors:
         return temp_celcius
         
 
-# def main():
-#     myinit = Initializepi()
-#     myinit.setup_GPIO()
-#     I2C_DEVICE_LIST = myinit.scan_i2c()
-#     myinit.check_i2c_devices(I2C_DEVICE_LIST)
-#     mytestsensors = Testsensors()
-#     mytestsensors.test_leds(myinit)
-#     mytestsensors.test_buzzer(myinit)
-#     mytestsensors.test_relays(myinit)
-#     mytestsensors.test_ultra_sensor(myinit)
-#     mytestsensors.test_temp_sensor()
-#     print('\nInitialisation Complete!')
+def main() -> None:
+    myinit = Initializepi()
+    myinit.setup_GPIO()
+    I2C_DEVICE_LIST = myinit.scan_i2c()
+    myinit.check_i2c_devices(I2C_DEVICE_LIST)   
+    mytestsensors = Testsensors()
+    mytestsensors.test_leds(myinit)
+    mytestsensors.test_buzzer(myinit)
+    mytestsensors.test_relays(myinit)
+    mytestsensors.test_ultra_sensor(myinit)
+    mytestsensors.test_temp_sensor()
+    print('\nInitialisation Complete!')
 
-# if __name__ == '__main__':
-#     main()
+if __name__ == '__main__':
+    main()

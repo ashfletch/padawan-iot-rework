@@ -17,20 +17,20 @@ class Temperature_Sensor:
         self.device_file = self.device_folder + '/w1_slave'
 
     
-    def read_rom(self):
+    def read_rom(self) -> str:
         name_file = self.device_folder + '/name'
         f = open(name_file,'r')
         return f.readline()
 
 
-    def read_temp_raw(self):
+    def read_temp_raw(self) ->str:
         f = open(self.device_file, 'r')
         lines = f.readlines()
         f.close()
         return lines
 
 
-    def read_temp(self):
+    def read_temp(self) -> int:
         lines = self.read_temp_raw()
         # Analyze if the last 3 characters are 'YES'.
         while lines[0].strip()[-3:] != 'YES':
@@ -48,17 +48,17 @@ class Temperature_Sensor:
         print(' rom: '+ self.read_rom())
 
 
-    def output_temp(self, temp_celcius):
+    def output_temp(self, temp_celcius) -> None:
         print('Water Temp: %3.3s C' % temp_celcius)
 
 
-# def main():
-#    mytempsensor = Temperature_Sensor()
-#    mytempsensor.setup_temp_sensor()
-#    mytempsensor.read_rom()
-#    mytempsensor.read_temp_raw()
-#    temp_celcius = mytempsensor.read_temp()
-#    mytempsensor.output_temp(temp_celcius)
+def main():
+   mytempsensor = Temperature_Sensor()
+   mytempsensor.setup_temp_sensor()
+   mytempsensor.read_rom()
+   mytempsensor.read_temp_raw()
+   temp_celcius = mytempsensor.read_temp()
+   mytempsensor.output_temp(temp_celcius)
 
-# if __name__ == '__main__':
-#     main()
+if __name__ == '__main__':
+    main()

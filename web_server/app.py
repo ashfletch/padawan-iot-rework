@@ -1,3 +1,11 @@
+'''
+This program is the main driver of the project, which performs an intialisation/
+POST of connected devices to Raspberry Pi, as well as displaying the RPi system
+statistics. The program itself has been written to measure the current water
+level and water temperature within a water tank, and output these measurements
+to a local OLED display, and downstream Flask GUI accessible via RPi WAP.
+'''
+
 import subprocess
 import threading
 import time
@@ -38,13 +46,13 @@ mytempsensor.read_rom()
 print("Initialisation Complete!")
 print("\nStarting Measurements...")
 
-def get_water_level():
+def get_water_level() -> int:
     return myultrasensor.read_sensor()
 
-def get_water_temp():
+def get_water_temp() -> int:
     return mytempsensor.read_temp()
 
-def background_reading():
+def background_reading() -> None:
     while True:
         time.sleep(1)
         distance = myultrasensor.read_sensor()
@@ -61,22 +69,22 @@ background_thread.start()
 app = Flask(__name__)
 
 @app.route("/")
-def home():
-    dis = get_water_level()
-    dis_percentage = dis / 0.126
-    blue_line = round(dis_percentage * 2.25)
-    white_line = 225 - blue_line
+def home() -> str:
+    distance = get_water_level()
+    distance_percentage = distance / 0.126 # 0.126 = 12.6 cm internal height of tank
+    fill_line = round(distance_percentage * 2.25) # convert distance to pixels in tank graphic
+    empty__fill_line = 225 - fill_line # empty line inverse of fill line
     temp = get_water_temp()
-    return render_template("home.html", dis=dis, temp=temp, blue_line=blue_line, white_line=white_line)
+    return render_template("home.html", distance=distance, temp=temp, fill_line=fill_line, empty__fill_line=empty__fill_line)
 
 
 @app.route("/home")
-def homepage():
+def homepage() -> str:
     return render_template("home.html")
     
 
 @app.route('/shutdown', methods=['POST', 'GET'])
-def shutdown():
+def shutdown() -> str:
     return render_template("shutdown.html")
 
 
@@ -94,12 +102,12 @@ def confirmshutdown():
 
 
 @app.route("/metrics")
-def metrics():
+def metrics() -> str:
     return render_template("metrics.html")
 
 
 @app.route("/logs")
-def logs():
+def logs() -> str:
     return render_template("logs.html")
 
 

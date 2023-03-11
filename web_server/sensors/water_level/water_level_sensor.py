@@ -1,5 +1,4 @@
 import time
-from os.path import exists
 
 import board
 import digitalio
@@ -29,6 +28,7 @@ class Water_Level_Sensor:
 
 
    def setup_GPIO(self) -> None:
+      # define I/Os
       self.red_led = digitalio.DigitalInOut(self.RED_LED_PIN)
       self.amber_led = digitalio.DigitalInOut(self.AMBER_LED_PIN)
       self.green_led = digitalio.DigitalInOut(self.GREEN_LED_PIN)
@@ -37,6 +37,7 @@ class Water_Level_Sensor:
       self.ultra_sonic_trig = digitalio.DigitalInOut(self.ULTRA_SONIC_SENSOR_TRIGGER_PIN)
       self.ultra_sonic_echo = digitalio.DigitalInOut(self.ULTRA_SONIC_SENSOR_ECHO_PIN)
 
+      #define I/O directions
       self.red_led.direction = digitalio.Direction.OUTPUT
       self.amber_led.direction = digitalio.Direction.OUTPUT
       self.green_led.direction = digitalio.Direction.OUTPUT
@@ -46,6 +47,7 @@ class Water_Level_Sensor:
       self.ultra_sonic_echo.direction = digitalio.Direction.INPUT
       self.ultra_sonic_echo.pull = digitalio.Pull.DOWN
 
+      # initialise devices
       self.red_led.value = self.LED_OFF
       self.amber_led.value = self.LED_OFF
       self.green_led.value = self.LED_OFF
@@ -74,7 +76,7 @@ class Water_Level_Sensor:
       return distance
 
 
-   def maintain_water_level(self):
+   def maintain_water_level(self) -> None:
       try:
          self.setup_GPIO()
          distance = self.read_sensor()
@@ -116,13 +118,13 @@ class Water_Level_Sensor:
          self.setup_GPIO()
 
 
-# def main():
-#    myultrasensor = Water_Level_Sensor()
-#    myultrasensor.setup_GPIO()
-#    print("Starting Measurements.....")
-#    time.sleep(1)
-#    myultrasensor.maintain_water_level()
+def main() -> None:
+   myultrasensor = Water_Level_Sensor()
+   myultrasensor.setup_GPIO()
+   print("Starting Measurements.....")
+   time.sleep(1)
+   myultrasensor.maintain_water_level()
    
 
-# if __name__ == '__main__':
-#     main()
+if __name__ == '__main__':
+    main()
