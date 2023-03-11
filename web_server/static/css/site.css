@@ -100,9 +100,9 @@ html, body {
 
 /* Water tank */
 #tanktable {margin-top:29px;
-  margin-left:1px;
-  /* border: 1px solid rgb(245, 6, 6);
-  height: 250px; */
+  margin-left:2px;
+  /* border: 1px solid rgb(245, 6, 6); */
+  /* height: 225px; */
   border-collapse: collapse;
 }
 .empty-line {
@@ -110,6 +110,7 @@ html, body {
 }
 .fill-line {
   border-left: 180px solid #28a1f7;
+  
 }
 
 #tank {
