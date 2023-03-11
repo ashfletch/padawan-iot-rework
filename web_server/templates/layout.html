@@ -3,24 +3,19 @@
   <head>
     {%- block head %}
     <title>{% block title %}{{title|default}}{% endblock title %}</title>
-
+    {%- block metas %}
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    {%- block metas %}
     {% endblock metas -%}
 
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}"/>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/site.css') }}"/>
-    {%- block styles %}
-    {% endblock styles -%}
 
-    <script type="text/javascript">
-      setTimeout(function(){
-        location.reload();},2000);
-    </script>
-
-    <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
     {%- block scripts %}
+    <script type="text/javascript">
+      setTimeout(function(){location.reload();},2000);
+    </script>
+    <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
     {% endblock scripts -%}
     {%- endblock head -%}
   </head>
@@ -39,11 +34,6 @@
             <div><img src="{{ url_for('static', filename='img/lsbu-logo-h-white.png') }}" alt="LSBU" class="logo d-inline-block align-text-middle"></div>
           </a>
           <ul class="navbar-nav">
-            {% for href, id, caption in navigation_bar %}
-              <li class="nav-item">
-                <a class="nav-link{{' active' if id == active_page else ''}}" href="{{ href|e }}">{{ caption|e }}</a>
-              </li>
-            {% endfor %}
             <li class="nav-item dropdown" id="navDropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 &#9776;
@@ -59,13 +49,10 @@
       </nav>
       {% endblock navbar %}
       <div class="page-header">
-        <h1><small>{% block pagetitle %}
-          {% endblock pagetitle%}</small></h1>
+        <h1><small>{% block pagetitle %}{% endblock pagetitle%}</small></h1>
       </div>
       <main role="main" class="container-fluid content">
-        <div>{% block content %}
-          {% endblock content %}
-        </div>
+        <div>{% block content %}{% endblock content %}</div>
         <script src="{{ url_for('static', filename='js/enable-tooltips.js') }}"></script>
       </main>
       <footer class="footer">

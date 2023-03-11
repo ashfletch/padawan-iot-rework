@@ -22,12 +22,12 @@ I2C_DEVICE_LIST = pi.scan_i2c()
 pi.check_i2c_devices(I2C_DEVICE_LIST)
 
 mytestsensors = initialize.Testsensors()
-print("\nInitialising RPi GPIO...")
-mytestsensors.test_leds(pi)
-mytestsensors.test_buzzer(pi)
-mytestsensors.test_relays(pi)
-mytestsensors.test_ultra_sensor(pi)
-mytestsensors.test_temp_sensor()
+# print("\nInitialising RPi GPIO...")
+# mytestsensors.test_leds(pi)
+# mytestsensors.test_buzzer(pi)
+# mytestsensors.test_relays(pi)
+# mytestsensors.test_ultra_sensor(pi)
+# mytestsensors.test_temp_sensor()
 
 myoled = mini_oled.MiniOled()
 print("Setting up OLED Display...")
@@ -54,9 +54,7 @@ def get_water_temp() -> int:
 
 def background_reading() -> None:
     while True:
-        time.sleep(1)
         distance = myultrasensor.read_sensor()
-        time.sleep(1)
         myultrasensor.maintain_water_level()
         mytempsensor.read_temp_raw()
         temp_celcius = mytempsensor.read_temp()
@@ -71,11 +69,11 @@ app = Flask(__name__)
 @app.route("/")
 def home() -> str:
     distance = get_water_level()
-    distance_percentage = distance / 0.126 # 0.126 = 12.6 cm internal height of tank
-    fill_line = round(distance_percentage * 2.25) # convert distance to pixels in tank graphic
-    empty__fill_line = 225 - fill_line # empty line inverse of fill line
+    distance_percentage = (distance / 133) * 100 # 0.126 = 12.6 cm internal height of tank
+    fill_line = distance_percentage * 2.25 # convert distance to pixels in tank graphic
+    empty_fill_line = 225 - fill_line # empty line inverse of fill line
     temp = get_water_temp()
-    return render_template("home.html", distance=distance, temp=temp, fill_line=fill_line, empty__fill_line=empty__fill_line)
+    return render_template("home.html", distance=distance, temp=temp, fill_line=fill_line, empty_fill_line=empty_fill_line)
 
 
 @app.route("/home")

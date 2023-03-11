@@ -52,13 +52,13 @@ class Temperature_Sensor:
         print('Water Temp: %3.3s C' % temp_celcius)
 
 
-def main():
-   mytempsensor = Temperature_Sensor()
-   mytempsensor.setup_temp_sensor()
-   mytempsensor.read_rom()
-   mytempsensor.read_temp_raw()
-   temp_celcius = mytempsensor.read_temp()
-   mytempsensor.output_temp(temp_celcius)
+# def main():
+#    mytempsensor = Temperature_Sensor()
+#    mytempsensor.setup_temp_sensor()
+#    mytempsensor.read_rom()
+#    mytempsensor.read_temp_raw()
+#    temp_celcius = mytempsensor.read_temp()
+#    mytempsensor.output_temp(temp_celcius)
 
-if __name__ == '__main__':
-    main()
+# if __name__ == '__main__':
+#     main()

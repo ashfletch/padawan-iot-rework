@@ -6,27 +6,17 @@
 
 {% block content %}
 
-<!-- <style>
-.empty-line {
-  border-left: 180px solid rgb(255, 255, 255);
-  height:{{ white_line }}px;
-}
-.fill-line {border-left: 180px solid #28a1f7;
-  height:{{ blue_line }}px;
-}
-</style> -->
-
 <div class="row">
   <div class="col-sm-6"><h5 style="text-align:center">Water Trough Monitor</h5></div>
   <h6 style="text-align:center">Water level: [{{ distance }} mm] || Water temp: [{{ temp }} C]</h6>
-    <table>
+  <table>
       <tr>
         <td id="tank">
           <table id="tanktable" name="table" height=20px style="border-spacing: 50px;">
             <tr>
               <td>
-                <div class="empty-line">{{ empty_fill_line }}</div>
-                <div class="fill-line">{{ fill_line }}</div>
+                <div class="empty-line" style="border-left: 180px solid rgb(255, 255, 255); height:{{ empty_fill_line }}px;"></div>
+                <div class="fill-line" style="border-left: 180px solid #28a1f7; height:{{ fill_line }}px;"></div>
               </td>
             </tr>
           </table>

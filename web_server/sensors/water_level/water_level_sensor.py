@@ -83,7 +83,6 @@ class Water_Level_Sensor:
          if distance is None:
             print("ERROR: Invalid Water Level Measurement")
             return
-         # print("Water LeveL: ", distance, "mm")
 
          if distance in range(50,80): # to fill more than low range, change to lower value
             print("Water Level Nominal:", distance,"mm")
@@ -104,27 +103,25 @@ class Water_Level_Sensor:
             time.sleep(25)
             self.water_pump.value = self.RELAY_PUMP_OFF            
          elif distance > 80: # would need to link to nominal lower range
-            print("Water level full:", distance,"mm")
+            print("Water level high", distance,"mm")
             self.amber_led.value = self.LED_OFF
             self.green_led.value = self.LED_ON
             self.red_led.value = self.LED_OFF
             self.water_pump.value = self.RELAY_PUMP_OFF
             self.buzzer.value = self.BUZZER_OFF
 
-         time.sleep(1)
-
       except KeyboardInterrupt:
          print("Cleaning up...!")
          self.setup_GPIO()
 
 
-def main() -> None:
-   myultrasensor = Water_Level_Sensor()
-   myultrasensor.setup_GPIO()
-   print("Starting Measurements.....")
-   time.sleep(1)
-   myultrasensor.maintain_water_level()
+# def main() -> None:
+#    myultrasensor = Water_Level_Sensor()
+#    myultrasensor.setup_GPIO()
+#    print("Starting Measurements.....")
+#    time.sleep(1)
+#    myultrasensor.maintain_water_level()
    
 
-if __name__ == '__main__':
-    main()
+# if __name__ == '__main__':
+#     main()
