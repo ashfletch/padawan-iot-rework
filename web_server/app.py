@@ -22,12 +22,12 @@ I2C_DEVICE_LIST = pi.scan_i2c()
 pi.check_i2c_devices(I2C_DEVICE_LIST)
 
 mytestsensors = initialize.Testsensors()
-# print("\nInitialising RPi GPIO...")
-# mytestsensors.test_leds(pi)
-# mytestsensors.test_buzzer(pi)
-# mytestsensors.test_relays(pi)
-# mytestsensors.test_ultra_sensor(pi)
-# mytestsensors.test_temp_sensor()
+print("\nInitialising RPi GPIO...")
+mytestsensors.test_leds(pi)
+mytestsensors.test_buzzer(pi)
+mytestsensors.test_relays(pi)
+mytestsensors.test_ultra_sensor(pi)
+mytestsensors.test_temp_sensor()
 
 myoled = mini_oled.MiniOled()
 print("Setting up OLED Display...")
@@ -86,7 +86,7 @@ def shutdown() -> str:
     return render_template("shutdown.html")
 
 
-@app.route('/confirmshutdown', methods=['POST'])
+@app.route('/shutdown/confirm', methods=['POST'])
 def confirmshutdown():
     """Form submission confirmation from shutdown page."""
     shutdown_type = request.form.get('shutdownType')
@@ -95,7 +95,7 @@ def confirmshutdown():
     elif shutdown_type == 'reboot':
         subprocess.run('sudo reboot -h 1 ', shell=True)
     else:
-        return redirect(url_for('home'))
+        return redirect(url_for('/'))
     return redirect(url_for('shutdown'))
 
 
