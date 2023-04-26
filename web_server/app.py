@@ -8,7 +8,6 @@ to a local OLED display, and downstream Flask GUI accessible via RPi WAP.
 
 import subprocess
 import threading
-import time
 
 from flask import Flask, redirect, url_for, render_template, request
 from web_server.initialize_pi import initialize
